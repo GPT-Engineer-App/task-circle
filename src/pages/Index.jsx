@@ -63,7 +63,10 @@ const Index = () => {
   if (isRunning) {
     return (
       <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center" bg="black">
-        <Text fontSize="6xl" color="white" fontFamily="monospace">
+        <CircularProgress value={(timeLeft / (tasks[selectedTask] * 60)) * 100} size="120px" color={timeLeft <= 60 ? "red.400" : timeLeft <= 300 ? "yellow.400" : "blue.400"}>
+          <CircularProgressLabel color="white">{formatTime(timeLeft)}</CircularProgressLabel>
+        </CircularProgress>
+        <Text fontSize="6xl" color="white" fontFamily="monospace" mt={4}>
           {formatTime(timeLeft)}
         </Text>
       </Container>
@@ -80,7 +83,7 @@ const Index = () => {
             </option>
           ))}
         </Select>
-        <CircularProgress value={(timeLeft / (tasks[selectedTask] * 60)) * 100} size="120px" color="blue.400">
+        <CircularProgress value={(timeLeft / (tasks[selectedTask] * 60)) * 100} size="120px" color={timeLeft <= 60 ? "red.400" : timeLeft <= 300 ? "yellow.400" : "blue.400"}>
           <CircularProgressLabel>{formatTime(timeLeft)}</CircularProgressLabel>
         </CircularProgress>
         <Button leftIcon={<FaPlay />} colorScheme="green" onClick={startTimer} isDisabled={!selectedTask || isRunning}>
